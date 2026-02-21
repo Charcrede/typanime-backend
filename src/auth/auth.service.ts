@@ -12,7 +12,7 @@ export class AuthService {
 
  async loginOAuth(oauthUser: any) {
   const user = await this.usersService.findOrCreateOAuthUser(oauthUser);
-
+  
   const payload = {
     sub: user.id,
     provider: user.provider,

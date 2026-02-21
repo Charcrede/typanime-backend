@@ -12,4 +12,11 @@ export class GetContentsDto {
   @Min(1)
   @Type(() => Number)
   page?: number = 1; // page par défaut
+
+
+  @IsOptional()
+  @IsInt()
+  @Min(1)
+  @Type(() => Number)
+  limit?: number = 6; // page par défaut
 }

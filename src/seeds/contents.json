@@ -4,14 +4,14 @@
     "title": "Naruto",
     "image": "assets/citations/img/2.jpg",
     "categoryId" : "Citation",
-    "text": "Ne vivez pas avec des mensonges ou des peurs, car vous finirez par vous détester. Cela fait partie de la philosophie de la vie Naruto. Cela signifie que mentir et vivre avec des peurs, à la fin, vous ne vous aimez pas."
+    "text": "Ne vivez pas avec des mensonges ou des peurs, car vous finirez par vous détester."
   },
   {
     "author": "Roronoa Zoro",
     "title": "One Piece",
     "image": "assets/citations/img/3.png",
     "categoryId" : "Citation",
-    "text": "Peu m'importe que les dieux existent ou non, je suis le maître de ma vie. étape des questions religieuses, mais ne méprisez jamais quelqu'un qui y croit. Vous avez vos propres idées mais n'essayez pas d'influencer les autres et d'accepter ce que tout le monde pense différemment."
+    "text": "Peu m'importe que les dieux existent ou non, je suis le maître de ma vie."
   },
   {
     "author": "Hitsugaya Toushiro",
@@ -344,7 +344,7 @@
   },
   {
     "image": "assets/Synopsis/img/Tenseishitaraslimedattaken.jpg",
-    "title": "Tensei shitara slime datta ken (moi, quand je me reincarne en slime)",
+    "title": "Tensei shitara slime datta ken",
     "text": "Satoru, employé de bureau lambda, se fait assassiner par un criminel en pleine rue. Son histoire aurait dû s'arrêter là, mais il se retrouve soudain réincarné dans un autre monde sous la forme d'un Slime, le monstre le plus faible du bestiaire fantastique. Son nouveau corps est équipé de deux compétences uniques : « Prédateur », lui permettant de récupérer les aptitudes de ses adversaires, et « Grand sage », grâce à laquelle il acquiert une compréhension aigüe de son environnement. Mais même muni de ces armes, ses chances de survie semblent encore limitées…",
     "categoryId": "Synopsis"
   },

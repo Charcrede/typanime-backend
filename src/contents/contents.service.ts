@@ -13,7 +13,7 @@ export class ContentsService {
   contentRepository: any;
 
   async getContents(dto: GetContentsDto) {
-    const take = 6; // 6 items par page
+    const take = dto.limit ?? 6; // 6 items par page
     const skip = ((dto.page ?? 1) - 1) * take;
 
     const [data, total] = await this.contentRepo.findAndCount({
