@@ -48,12 +48,6 @@ export class AuthController {
   async githubCallback(@Req() req, @Res() res: Response) {
     const token = await this.authService.loginOAuth(req.user);
 
-    res.cookie('auth_token', token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-    });
-
     return res.redirect(
       `${process.env.FRONT_URL}/auth/callback?token=${token}`
     );
