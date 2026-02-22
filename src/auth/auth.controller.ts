@@ -3,6 +3,7 @@ import {
   Body,
   Controller,
   Get,
+  Logger,
   Post,
   Req,
   Res,
@@ -30,6 +31,7 @@ export class AuthController {
   async googleCallback(@Req() req, @Res() res: Response) {
     const token = await this.authService.loginOAuth(req.user);
     const strToken = JSON.stringify(token)
+    new Logger("Token : "+ strToken);
     return res.redirect(
       `${process.env.FRONT_URL}/auth/callback?token=${strToken}`
     );
