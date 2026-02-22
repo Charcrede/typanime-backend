@@ -1,7 +1,9 @@
 // auth/auth.controller.ts
 import {
+  Body,
   Controller,
   Get,
+  Post,
   Req,
   Res,
   UseGuards,
@@ -28,13 +30,9 @@ export class AuthController {
   async googleCallback(@Req() req, @Res() res: Response) {
     const token = await this.authService.loginOAuth(req.user);
 
-    res.cookie('auth_token', token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-    });
-
-    return res.redirect(`${process.env.FRONT_URL}/dashboard`);
+    return res.redirect(
+      `${process.env.FRONT_URL}/auth/callback?token=${token}`
+    );
   }
 
   /* ---------------- GITHUB ---------------- */
@@ -56,6 +54,23 @@ export class AuthController {
       sameSite: 'none',
     });
 
-    return res.redirect(`${process.env.FRONT_URL}/dashboard`);
+    return res.redirect(
+      `${process.env.FRONT_URL}/auth/callback?token=${token}`
+    );
+  }
+
+  @Post('set-cookie')
+  setCookie(@Body('token') token: string, @Res() res: Response) {
+    if (!token) {
+      return res.status(400).json({ message: 'Missing token' });
+    }
+
+    res.cookie('auth_token', token, {
+      httpOnly: true,
+      secure: true,
+      sameSite: 'none',
+    });
+
+    return res.json({ ok: true });
   }
 }
