@@ -8,11 +8,10 @@ import { AppDataSource } from './database/data-source';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await AppDataSource.initialize();
-   app.enableCors({
-    origin: ['http://localhost:3001', 'https://typanime.vercel.app'], // ici les domaines autorisés
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-    credentials: true, 
-  });
+app.enableCors({
+  origin: process.env.FRONT_URL,
+  credentials: true,
+})
 
   const config = new DocumentBuilder()
     .setTitle('TypAnime API')

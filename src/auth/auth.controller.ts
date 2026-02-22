@@ -17,7 +17,7 @@ import 'dotenv'
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) { }
-
+ logger = new Logger('AuthController');
   /* ---------------- GOOGLE ---------------- */
 
   @Get('google')
@@ -31,7 +31,7 @@ export class AuthController {
   async googleCallback(@Req() req, @Res() res: Response) {
     const token = await this.authService.loginOAuth(req.user);
     const strToken = JSON.stringify(token)
-    new Logger("Token : "+ strToken);
+    this.logger.log("new Token : "+ strToken);
     return res.redirect(
       `${process.env.FRONT_URL}/auth/callback?token=${strToken}`
     );
@@ -62,10 +62,12 @@ export class AuthController {
     }
 
     res.cookie('auth_token', token, {
-      httpOnly: true,
-      secure: true,
-      sameSite: 'none',
-    });
+  httpOnly: true,
+  secure: true,
+  sameSite: 'none',
+  path: '/',
+  maxAge: 7 * 24 * 60 * 60 * 1000, // 7 jours
+})
 
     return res.json({ ok: true });
   }

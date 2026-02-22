@@ -9,7 +9,7 @@ export class AuthService {
     private jwtService: JwtService,
     private readonly usersService: UsersService,
   ) {}
-
+  logger = new Logger('AuthController');
  async loginOAuth(oauthUser: any) {
   const user = await this.usersService.findOrCreateOAuthUser(oauthUser);
   
@@ -17,11 +17,7 @@ export class AuthService {
     sub: user.id,
     provider: user.provider,
   };
-const strToken = JSON.stringify({
-    access_token: this.jwtService.sign(payload),
-    user,
-  })
-  new Logger("Token : " + strToken)
+
   return {
     access_token: this.jwtService.sign(payload),
     user,
