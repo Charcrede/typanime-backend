@@ -31,7 +31,7 @@ export class AuthController {
     res.cookie('auth_token', token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'lax',
+      sameSite: 'none',
     });
 
     return res.redirect(`${process.env.FRONT_URL}/dashboard`);
@@ -53,7 +53,7 @@ export class AuthController {
     res.cookie('auth_token', token, {
       httpOnly: true,
       secure: true,
-      sameSite: 'lax',
+      sameSite: 'none',
     });
 
     return res.redirect(`${process.env.FRONT_URL}/dashboard`);
