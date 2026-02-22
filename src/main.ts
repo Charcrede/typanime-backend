@@ -9,7 +9,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   await AppDataSource.initialize();
    app.enableCors({
-    origin: ['http://localhost:3001', 'https://ton-domaine.com'], // ici les domaines autorisés
+    origin: ['http://localhost:3001', 'https://typanime.onrender.com'], // ici les domaines autorisés
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true, 
   });
