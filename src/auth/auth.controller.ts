@@ -29,9 +29,9 @@ export class AuthController {
   @UseGuards(AuthGuard('google'))
   async googleCallback(@Req() req, @Res() res: Response) {
     const token = await this.authService.loginOAuth(req.user);
-
+    const strToken = JSON.stringify(token)
     return res.redirect(
-      `${process.env.FRONT_URL}/auth/callback?token=${token}`
+      `${process.env.FRONT_URL}/auth/callback?token=${strToken}`
     );
   }
 
@@ -47,9 +47,9 @@ export class AuthController {
   @UseGuards(AuthGuard('github'))
   async githubCallback(@Req() req, @Res() res: Response) {
     const token = await this.authService.loginOAuth(req.user);
-
+    const strToken = JSON.stringify(token)
     return res.redirect(
-      `${process.env.FRONT_URL}/auth/callback?token=${token}`
+      `${process.env.FRONT_URL}/auth/callback?token=${strToken}`
     );
   }
 
