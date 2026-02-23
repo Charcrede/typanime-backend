@@ -18,7 +18,9 @@ export class ChallengesService {
     ) {}
 
     // Tous les challenges non expirés, triés par date de création desc
-    findAll(): Promise<Challenge[]> {
+async findAll(userId?: number): Promise<Challenge[]> {
+    if (!userId) {
+        // Non connecté → seulement les actifs
         return this.challengesRepository.find({
             where: { expires_at: MoreThan(new Date()) },
             relations: ['content', 'participants', 'participants.user'],
@@ -26,13 +28,32 @@ export class ChallengesService {
         });
     }
 
+    // Connecté → actifs + ceux où l'user a participé (même expirés)
+    return this.challengesRepository
+        .createQueryBuilder('c')
+        .leftJoinAndSelect('c.content', 'content')
+        .leftJoinAndSelect('c.participants', 'participants')
+        .leftJoinAndSelect('participants.user', 'user')
+        .where('c.expires_at > :now', { now: new Date() })
+        .orWhere(qb => {
+            const sub = qb.subQuery()
+                .select('cp.challenge_id')
+                .from('challenge_participants', 'cp')
+                .where('cp.user_id = :userId')
+                .getQuery()
+            return `c.id IN ${sub}`
+        }, { userId })
+        .orderBy('c.createdAt', 'DESC')
+        .getMany()
+}
+
     async findOne(id: number): Promise<Challenge> {
   const challenge = await this.challengesRepository.findOne({
     where: { id },
     relations: [
       'content',
       'participants',
-      'participants.user', // 👈 clé ici
+      'participants.user', 
     ],
   });
 

@@ -5,16 +5,18 @@ import {
 import { ChallengesService } from './challenges.service';
 import { CreateChallengeDto } from './dto/create-challenge.dto';
 import { JoinChallengeDto } from './dto/join-challenge.dto';
-import { JwtAuthGuard } from '../auth/jwt-auth.guard';
+import { JwtAuthGuard, OptionalJwtAuthGuard } from '../auth/jwt-auth.guard';
 
 @Controller('challenges')
 export class ChallengesController {
-    constructor(private readonly challengesService: ChallengesService) {}
+    constructor(private readonly challengesService: ChallengesService) { }
 
     // GET /challenges — public, tout le monde peut voir les challenges
     @Get()
-    findAll() {
-        return this.challengesService.findAll();
+    @UseGuards(OptionalJwtAuthGuard)
+    findAll(@Req() req) {
+        const userId = req.user?.id  
+        return this.challengesService.findAll(userId)
     }
 
     // GET /challenges/:id — détail d'un challenge avec participants
